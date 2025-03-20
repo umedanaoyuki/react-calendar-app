@@ -3,10 +3,11 @@ import { createRoot } from "react-dom/client";
 import "./styles/index.css";
 import "./styles/output.css";
 import "./styles/destyle.css";
-import { TopPage } from "./components/pages/TopPage";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <TopPage />
+    <RouterProvider router={router} />
   </StrictMode>
 );
