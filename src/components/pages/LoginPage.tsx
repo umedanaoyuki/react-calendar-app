@@ -20,7 +20,6 @@ export const LoginPage = () => {
   const changeLoginInfo = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setLoginInfo({ ...loginInfo, [name]: value });
-    console.log({ loginInfo });
   };
 
   const handleLogin = (event: FormEvent<HTMLFormElement>) => {
