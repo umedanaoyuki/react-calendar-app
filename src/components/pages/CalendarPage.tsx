@@ -1,46 +1,11 @@
-import {
-  eachDayOfInterval,
-  eachWeekOfInterval,
-  endOfMonth,
-  endOfWeek,
-  getDate,
-  getMonth,
-  isSameMonth,
-  isToday,
-  startOfMonth,
-} from "date-fns";
-import { DAYS_LIST } from "../../constants/calendar";
-import { useEffect, useState } from "react";
+import { getMonth } from "date-fns";
 import { CalendarHeader } from "../organisms/CalendarHeader";
 import { CalenderBody } from "../organisms/CalenderBody";
+import { useCalendar } from "../../hooks/useCalendar";
 
 export const CalendarPage = () => {
   const today = new Date();
-  const [dateList, setDateList] = useState<Date[][]>([]);
-
-  const dateColor = (targetDate: Date, currentDate: Date): string => {
-    console.log({ targetDate, currentDate });
-
-    if (isToday(targetDate)) return "bg-lime-800 text-white rounded-full";
-    return isSameMonth(targetDate, currentDate)
-      ? "text-black"
-      : "text-gray-300";
-  };
-
-  useEffect(() => {
-    const monthOfSundayList = eachWeekOfInterval({
-      start: startOfMonth(today),
-      end: endOfMonth(today),
-    });
-
-    const newDateList: Date[][] = monthOfSundayList.map((date) => {
-      return eachDayOfInterval({
-        start: date,
-        end: endOfWeek(date),
-      });
-    });
-    setDateList(newDateList);
-  }, []);
+  const { dateList } = useCalendar({ currentDate: today });
 
   return (
     <>
