@@ -11,7 +11,9 @@ export const TopPage = () => {
         お互いのスケジュールを管理するアプリです
       </p>
       <div className="pt-[20vh]">
-        <PrimaryBtn onClick={() => naviagte("/login")}>ログイン</PrimaryBtn>
+        <PrimaryBtn size="lg" onClick={() => naviagte("/login")}>
+          ログイン
+        </PrimaryBtn>
       </div>
     </div>
   );
