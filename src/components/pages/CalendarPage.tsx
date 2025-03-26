@@ -3,29 +3,19 @@ import {
   eachWeekOfInterval,
   endOfMonth,
   endOfWeek,
-  getDate,
   getMonth,
-  isSameMonth,
-  isToday,
+  isSameDay,
   startOfMonth,
 } from "date-fns";
-import { DAYS_LIST } from "../../constants/calendar";
 import { useEffect, useState } from "react";
 import { CalendarHeader } from "../organisms/CalendarHeader";
 import { CalenderBody } from "../organisms/CalenderBody";
+import { DateList, Schedule } from "../../types/calendar";
+import { getScheduleList } from "../../api/calendar";
 
 export const CalendarPage = () => {
   const today = new Date();
-  const [dateList, setDateList] = useState<Date[][]>([]);
-
-  const dateColor = (targetDate: Date, currentDate: Date): string => {
-    console.log({ targetDate, currentDate });
-
-    if (isToday(targetDate)) return "bg-lime-800 text-white rounded-full";
-    return isSameMonth(targetDate, currentDate)
-      ? "text-black"
-      : "text-gray-300";
-  };
+  const [dateList, setDateList] = useState<DateList>([]);
 
   useEffect(() => {
     const monthOfSundayList = eachWeekOfInterval({
@@ -33,12 +23,29 @@ export const CalendarPage = () => {
       end: endOfMonth(today),
     });
 
-    const newDateList: Date[][] = monthOfSundayList.map((date) => {
+    const newDateList: DateList = monthOfSundayList.map((date) => {
       return eachDayOfInterval({
         start: date,
         end: endOfWeek(date),
-      });
+      }).map((date) => ({ date, schedules: [] as Schedule[] }));
     });
+
+    const scheduleList = getScheduleList();
+    scheduleList.forEach((schedule) => {
+      const firstIndex = newDateList.findIndex((oneWeek) =>
+        oneWeek.some((item) => isSameDay(item.date, schedule.date))
+      );
+      if (firstIndex === -1) return;
+      const secondIndex = newDateList[firstIndex].findIndex((item) =>
+        isSameDay(item.date, schedule.date)
+      );
+
+      newDateList[firstIndex][secondIndex].schedules = [
+        ...newDateList[firstIndex][secondIndex].schedules,
+        schedule,
+      ];
+    });
+
     setDateList(newDateList);
   }, []);
 
