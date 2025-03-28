@@ -47,7 +47,7 @@ export const useCalendar = ({ currentDate }: PropsType) => {
     });
 
     setDateList(newDateList);
-  }, []);
+  }, [currentDate]);
 
   return { dateList };
 };

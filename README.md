@@ -1,3 +1,5 @@
+メモ：npx tailwindcss -i ./src/styles/index.css -o ./src/styles/output.css --watch
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
