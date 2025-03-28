@@ -66,7 +66,9 @@ export const LoginPage = () => {
             onChange={changeLoginInfo}
           />
         </div>
-        <PrimaryBtn onClick={() => null}>ログイン</PrimaryBtn>
+        <PrimaryBtn size="lg" onClick={() => null}>
+          ログイン
+        </PrimaryBtn>
       </form>
     </div>
   );
