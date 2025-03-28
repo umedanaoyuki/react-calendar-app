@@ -678,6 +678,10 @@ video {
   border-collapse: collapse;
 }
 
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -821,6 +825,10 @@ video {
 
 .pt-\[50px\] {
   padding-top: 50px;
+}
+
+.pb-5 {
+  padding-bottom: 1.25rem;
 }
 
 .text-center {
