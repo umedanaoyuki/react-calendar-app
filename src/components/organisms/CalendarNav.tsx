@@ -3,12 +3,14 @@ import { PrimaryBtn } from "../atoms/PrimaryBtn";
 import { Dispatch, SetStateAction, useState } from "react";
 import { addMonths } from "date-fns";
 import { CreateScheduleModal } from "./CreateScheduleModal";
+import { Schedule } from "../../types/calendar";
 
 type PropsType = {
   setCurrentDate: Dispatch<SetStateAction<Date>>;
+  addSchedule: (schedule: Schedule) => void;
 };
 
-export const CalendarNav = ({ setCurrentDate }: PropsType) => {
+export const CalendarNav = ({ setCurrentDate, addSchedule }: PropsType) => {
   const [isOpen, setIsOpen] = useState(false);
   const closeModal = () => setIsOpen(false);
 
@@ -36,7 +38,11 @@ export const CalendarNav = ({ setCurrentDate }: PropsType) => {
       <PrimaryBtn size="sm" onClick={() => setIsOpen(true)}>
         予定作成
       </PrimaryBtn>
-      <CreateScheduleModal isOpen={isOpen} closeModal={closeModal} />
+      <CreateScheduleModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        addSchedule={addSchedule}
+      />
     </div>
   );
 };
