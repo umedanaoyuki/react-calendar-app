@@ -2,17 +2,19 @@ import { FormEvent, useState } from "react";
 import { NewSchedule, Schedule } from "../types/calendar";
 import { format, parse } from "date-fns";
 
+const INIT_SCHEDULE: NewSchedule = {
+  title: "",
+  date: format(new Date(), "yyyy-MM-dd"),
+  description: "",
+};
+
 type PropsType = {
   closeModal: () => void;
   addSchedule: (schedule: Schedule) => void;
 };
 
 export const useCreateSchedule = ({ closeModal, addSchedule }: PropsType) => {
-  const [newSchedule, setNewSchedule] = useState<NewSchedule>({
-    title: "",
-    date: format(new Date(), "yyyy-MM-dd"),
-    description: "",
-  });
+  const [newSchedule, setNewSchedule] = useState<NewSchedule>(INIT_SCHEDULE);
 
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -45,11 +47,7 @@ export const useCreateSchedule = ({ closeModal, addSchedule }: PropsType) => {
       description: description,
     };
     addSchedule(schedule);
-    setNewSchedule({
-      title: "",
-      date: format(new Date(), "yyyy-MM-dd"),
-      description: "",
-    });
+    setNewSchedule(INIT_SCHEDULE);
     closeModal();
   };
 
