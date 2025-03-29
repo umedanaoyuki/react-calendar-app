@@ -19,11 +19,14 @@ export const CalenderBody = ({ currentDate, dateList }: PropsType) => {
   return (
     <>
       <tbody>
-        {dateList.map((oneWeek) => (
-          <tr key={`week-${getDate(oneWeek[0].date)}`} className="mx-10">
-            {oneWeek.map((item) => (
+        {dateList.map((oneWeek, index) => (
+          <tr
+            key={`week-${getDate(oneWeek[0].date)}-${index}`}
+            className="mx-10"
+          >
+            {oneWeek.map((item, index) => (
               <td
-                key={`day-${getDate(oneWeek[0].date)}`}
+                key={`day-${getDate(oneWeek[0].date)}-${index}`}
                 className="bg-white h-[10vh] border-2 border-solid border-lime-800"
               >
                 <span
