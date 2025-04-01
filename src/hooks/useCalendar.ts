@@ -86,13 +86,7 @@ export const useCalendar = ({ currentDate }: PropsType) => {
       secondIndex
     ].schedules.filter((item) => item.id !== schedule.id);
 
-    // newDateList[firstIndex][secondIndex].schedules = [
-
-    console.log({ newDateList });
-
-    console.log("削除");
-
-    // setDateList();
+    setDateList(newDateList);
   };
 
   useEffect(() => {
