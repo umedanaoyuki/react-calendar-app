@@ -30,7 +30,12 @@ export const CreateScheduleModal = ({
     useCreateSchedule({ closeModal, addSchedule });
 
   return (
-    <Modal isOpen={isOpen} style={customStyles} onRequestClose={closeModal}>
+    <Modal
+      isOpen={isOpen}
+      style={customStyles}
+      onRequestClose={closeModal}
+      appElement={document.getElementById("root") as HTMLElement}
+    >
       <div>
         <h3 className="text-center text-3xl text-lime-800 font-bold pb-5">
           予定作成
