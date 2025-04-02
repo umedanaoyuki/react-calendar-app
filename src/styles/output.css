@@ -642,12 +642,24 @@ video {
   display: table;
 }
 
+.hidden {
+  display: none;
+}
+
 .h-\[10vh\] {
   height: 10vh;
 }
 
 .h-screen {
   height: 100vh;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.h-48 {
+  height: 12rem;
 }
 
 .w-\[100\%\] {
@@ -724,6 +736,14 @@ video {
 
 .gap-8 {
   gap: 2rem;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-scroll {
+  overflow: scroll;
 }
 
 .rounded-full {
@@ -892,6 +912,14 @@ video {
 
 .leading-\[50px\] {
   line-height: 50px;
+}
+
+.leading-4 {
+  line-height: 1rem;
+}
+
+.leading-8 {
+  line-height: 2rem;
 }
 
 .text-black {

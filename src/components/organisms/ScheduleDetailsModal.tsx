@@ -16,6 +16,8 @@ const customStyles = {
     top: "50%",
     left: "50%",
     width: "30%",
+    height: "50%",
+    overflow: "hidden",
     transform: "translate(-50%, -50%)",
   },
 };
@@ -27,8 +29,6 @@ export const ScheduleDetailsModal = ({
   closeModal,
   deleteSchedule,
 }: PropsType) => {
-  // const [isEditting, setIsEditting] = useState<boolean>(false);
-
   const handleDeleteSchedule = (selectedSchedule: Schedule) => {
     if (selectedSchedule) {
       deleteSchedule(selectedSchedule);
@@ -37,13 +37,14 @@ export const ScheduleDetailsModal = ({
   };
 
   const handleEditSchedule = (isEditting: boolean) => {
-    // console.log({ isEditting });
-
+    console.log("通過1");
     // 保存ボタンの表示
     if (!isEditting) {
+      console.log("通過2");
       handleIsEdittingChange(isEditting);
     } else {
       console.log("保存");
+      handleIsEdittingChange(isEditting);
     }
   };
 
@@ -73,11 +74,19 @@ export const ScheduleDetailsModal = ({
               閉じる
             </PrimaryBtn>
           </div>
-          <h3 className="text-center text-3xl text-lime-800 font-bold pb-5">
-            {selectedSchedule.title}
-          </h3>
-          <p>{format(selectedSchedule.date, "yyyy年M月d日")}</p>
-          <p>{selectedSchedule.description}</p>
+          <input
+            type="text"
+            className="text-center text-3xl text-lime-800 font-bold pb-5"
+            value={selectedSchedule.title}
+          />
+          <input
+            type="date"
+            value={format(selectedSchedule.date, "yyyy年M月d日")}
+          />
+          <textarea
+            className="h-48 w-full overflow-auto"
+            value={selectedSchedule.description}
+          />
         </div>
       )}
     </Modal>
