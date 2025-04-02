@@ -11,11 +11,26 @@ type PropsType = {
   deleteSchedule: (schedule: Schedule) => void;
 };
 
-export const CalenderBody = ({ currentDate, dateList, deleteSchedule }: PropsType) => {
+export const CalenderBody = ({
+  currentDate,
+  dateList,
+  deleteSchedule,
+}: PropsType) => {
   const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(
     null
   );
-  const closeModal = () => setSelectedSchedule(null);
+
+  // 編集ボタンの表示について（初期は編集モードではない）
+  const [isEditting, setIsEditting] = useState<boolean>(false);
+
+  const closeModal = () => {
+    setSelectedSchedule(null);
+    setIsEditting(false);
+  };
+
+  const handleIsEdittingChange = (isEditting: boolean) => {
+    setIsEditting(!isEditting);
+  };
 
   return (
     <>
@@ -57,6 +72,8 @@ export const CalenderBody = ({ currentDate, dateList, deleteSchedule }: PropsTyp
         selectedSchedule={selectedSchedule}
         closeModal={closeModal}
         deleteSchedule={deleteSchedule}
+        isEditting={isEditting}
+        handleIsEdittingChange={handleIsEdittingChange}
       />
     </>
   );

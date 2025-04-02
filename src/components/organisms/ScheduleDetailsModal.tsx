@@ -4,6 +4,8 @@ import { format } from "date-fns";
 import { PrimaryBtn } from "../atoms/PrimaryBtn";
 
 type PropsType = {
+  isEditting: boolean;
+  handleIsEdittingChange: (isEditting: boolean) => void;
   selectedSchedule: Schedule | null;
   closeModal: () => void;
   deleteSchedule: (schedule: Schedule) => void;
@@ -19,15 +21,30 @@ const customStyles = {
 };
 
 export const ScheduleDetailsModal = ({
+  isEditting,
+  handleIsEdittingChange,
   selectedSchedule,
   closeModal,
   deleteSchedule,
 }: PropsType) => {
+  // const [isEditting, setIsEditting] = useState<boolean>(false);
+
   const handleDeleteSchedule = (selectedSchedule: Schedule) => {
     if (selectedSchedule) {
       deleteSchedule(selectedSchedule);
     }
     closeModal();
+  };
+
+  const handleEditSchedule = (isEditting: boolean) => {
+    // console.log({ isEditting });
+
+    // 保存ボタンの表示
+    if (!isEditting) {
+      handleIsEdittingChange(isEditting);
+    } else {
+      console.log("保存");
+    }
   };
 
   return (
@@ -40,6 +57,12 @@ export const ScheduleDetailsModal = ({
       {selectedSchedule && (
         <div className="flex flex-col gap-8">
           <div className="flex justify-center gap-4">
+            <PrimaryBtn
+              size="sm"
+              onClick={() => handleEditSchedule(isEditting)}
+            >
+              {isEditting ? "保存" : "編集"}
+            </PrimaryBtn>
             <PrimaryBtn
               size="sm"
               onClick={() => handleDeleteSchedule(selectedSchedule)}
