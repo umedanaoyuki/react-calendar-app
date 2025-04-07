@@ -78,14 +78,17 @@ export const ScheduleDetailsModal = ({
             type="text"
             className="text-center text-3xl text-lime-800 font-bold pb-5"
             value={selectedSchedule.title}
+            disabled={!isEditting}
           />
           <input
             type="date"
             value={format(selectedSchedule.date, "yyyy年M月d日")}
+            disabled={!isEditting}
           />
           <textarea
             className="h-48 w-full overflow-auto"
             value={selectedSchedule.description}
+            disabled={!isEditting}
           />
         </div>
       )}
