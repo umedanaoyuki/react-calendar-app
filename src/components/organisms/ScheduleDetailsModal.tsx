@@ -76,17 +76,21 @@ export const ScheduleDetailsModal = ({
           </div>
           <input
             type="text"
-            className="text-center text-3xl text-lime-800 font-bold pb-5"
+            data-edit={isEditting}
+            className="text-center text-3xl text-lime-800 font-bold data-[edit=true]:border-green-600 data-[edit=true]:border data-[edit=true]:rounded-md"
             value={selectedSchedule.title}
             disabled={!isEditting}
           />
           <input
             type="date"
+            data-edit={isEditting}
+            className="data-[edit=true]:border-green-600 data-[edit=true]:border data-[edit=true]:rounded-md"
             value={format(selectedSchedule.date, "yyyy年M月d日")}
             disabled={!isEditting}
           />
           <textarea
-            className="h-48 w-full overflow-auto"
+            data-edit={isEditting}
+            className="h-48 w-full overflow-auto data-[edit=true]:border-green-600 data-[edit=true]:border data-[edit=true]:rounded-md"
             value={selectedSchedule.description}
             disabled={!isEditting}
           />
