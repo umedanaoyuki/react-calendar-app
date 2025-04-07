@@ -85,7 +85,7 @@ export const ScheduleDetailsModal = ({
             type="date"
             data-edit={isEditting}
             className="data-[edit=true]:border-green-600 data-[edit=true]:border data-[edit=true]:rounded-md"
-            value={format(selectedSchedule.date, "yyyy年M月d日")}
+            value={format(selectedSchedule.date, "yyyy-MM-dd")}
             disabled={!isEditting}
           />
           <textarea
