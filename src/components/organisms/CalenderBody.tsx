@@ -73,6 +73,7 @@ export const CalenderBody = ({
         closeModal={closeModal}
         deleteSchedule={deleteSchedule}
         isEditting={isEditting}
+        setSelectedSchedule={setSelectedSchedule}
         handleIsEdittingChange={handleIsEdittingChange}
       />
     </>

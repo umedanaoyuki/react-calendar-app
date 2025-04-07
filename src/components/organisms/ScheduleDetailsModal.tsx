@@ -1,7 +1,8 @@
 import Modal from "react-modal";
 import { Schedule } from "../../types/calendar";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { PrimaryBtn } from "../atoms/PrimaryBtn";
+import { ChangeEvent } from "react";
 
 type PropsType = {
   isEditting: boolean;
@@ -9,6 +10,7 @@ type PropsType = {
   selectedSchedule: Schedule | null;
   closeModal: () => void;
   deleteSchedule: (schedule: Schedule) => void;
+  setSelectedSchedule: (schedule: Schedule | null) => void;
 };
 
 const customStyles = {
@@ -28,6 +30,7 @@ export const ScheduleDetailsModal = ({
   selectedSchedule,
   closeModal,
   deleteSchedule,
+  setSelectedSchedule,
 }: PropsType) => {
   const handleDeleteSchedule = (selectedSchedule: Schedule) => {
     if (selectedSchedule) {
@@ -46,6 +49,19 @@ export const ScheduleDetailsModal = ({
       console.log("保存");
       handleIsEdittingChange(isEditting);
     }
+  };
+
+  const onChangeSchedule = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    selectedSchedule: Schedule,
+    field: keyof Schedule
+  ) => {
+    const value =
+      field === "date" ? parseISO(event.target.value) : event.target.value;
+    setSelectedSchedule({
+      ...selectedSchedule,
+      [field]: value,
+    });
   };
 
   return (
@@ -80,6 +96,7 @@ export const ScheduleDetailsModal = ({
             className="text-center text-3xl text-lime-800 font-bold data-[edit=true]:border-green-600 data-[edit=true]:border data-[edit=true]:rounded-md"
             value={selectedSchedule.title}
             disabled={!isEditting}
+            onChange={(e) => onChangeSchedule(e, selectedSchedule, "title")}
           />
           <input
             type="date"
@@ -87,12 +104,16 @@ export const ScheduleDetailsModal = ({
             className="data-[edit=true]:border-green-600 data-[edit=true]:border data-[edit=true]:rounded-md"
             value={format(selectedSchedule.date, "yyyy-MM-dd")}
             disabled={!isEditting}
+            onChange={(e) => onChangeSchedule(e, selectedSchedule, "date")}
           />
           <textarea
             data-edit={isEditting}
             className="h-48 w-full overflow-auto data-[edit=true]:border-green-600 data-[edit=true]:border data-[edit=true]:rounded-md"
             value={selectedSchedule.description}
             disabled={!isEditting}
+            onChange={(e) =>
+              onChangeSchedule(e, selectedSchedule, "description")
+            }
           />
         </div>
       )}
