@@ -42,11 +42,9 @@ export const ScheduleDetailsModal = ({
   );
 
   useEffect(() => {
-    console.log("useEffect発動");
     if (selectedSchedule && !originalSchedule) {
       setOriginalSchedule(selectedSchedule);
     }
-    console.log({ originalSchedule });
   }, [selectedSchedule]);
 
   const handleDeleteSchedule = (selectedSchedule: Schedule) => {
@@ -61,22 +59,11 @@ export const ScheduleDetailsModal = ({
     originalSchedule: Schedule | null,
     selectedSchedule: Schedule
   ) => {
-    console.log("通過1");
-    console.log({ originalSchedule });
-    console.log({ selectedSchedule });
-
     // 保存ボタンの表示
     if (!isEditting) {
-      console.log("通過2");
       handleIsEdittingChange(isEditting);
     } else {
-      console.log("保存");
       handleIsEdittingChange(isEditting);
-      console.log("保存２");
-
-      console.log({ originalSchedule });
-      console.log({ selectedSchedule });
-
       changeSchedule(originalSchedule, selectedSchedule);
       setOriginalSchedule(null);
     }
