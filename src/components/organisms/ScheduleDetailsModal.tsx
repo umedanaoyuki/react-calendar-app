@@ -66,6 +66,7 @@ export const ScheduleDetailsModal = ({
       handleIsEdittingChange(isEditting);
       changeSchedule(originalSchedule, selectedSchedule);
       setOriginalSchedule(null);
+      closeModal();
     }
   };
 
