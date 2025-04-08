@@ -104,12 +104,14 @@ export const ScheduleDetailsModal = ({
             >
               {isEditting ? "保存" : "編集"}
             </PrimaryBtn>
-            <PrimaryBtn
-              size="sm"
-              onClick={() => handleDeleteSchedule(selectedSchedule)}
-            >
-              削除
-            </PrimaryBtn>
+            {!isEditting && (
+              <PrimaryBtn
+                size="sm"
+                onClick={() => handleDeleteSchedule(selectedSchedule)}
+              >
+                削除
+              </PrimaryBtn>
+            )}
             <PrimaryBtn size="sm" onClick={closeModal}>
               閉じる
             </PrimaryBtn>
