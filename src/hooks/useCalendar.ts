@@ -89,6 +89,17 @@ export const useCalendar = ({ currentDate }: PropsType) => {
     setDateList(newDateList);
   };
 
+  // 予定変更
+  const changeSchedule = (
+    originalSchedule: Schedule | null,
+    selectedSchedule: Schedule
+  ) => {
+    if (originalSchedule) {
+      deleteSchedule(originalSchedule);
+    }
+    addSchedule(selectedSchedule);
+  };
+
   useEffect(() => {
     const monthOfSundayList = eachWeekOfInterval({
       start: startOfMonth(currentDate),
@@ -116,5 +127,12 @@ export const useCalendar = ({ currentDate }: PropsType) => {
     setDateList(newDateList);
   }, [currentDate]);
 
-  return { dateList, addSchedule, editSchedule, deleteSchedule };
+  return {
+    dateList,
+    setDateList,
+    addSchedule,
+    editSchedule,
+    deleteSchedule,
+    changeSchedule,
+  };
 };
