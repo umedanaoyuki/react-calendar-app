@@ -7,9 +7,10 @@ import { CalendarNav } from "../organisms/CalendarNav";
 
 export const CalendarPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const { dateList, addSchedule, deleteSchedule } = useCalendar({
-    currentDate: currentDate,
-  });
+  const { dateList, setDateList, addSchedule, deleteSchedule, changeSchedule } =
+    useCalendar({
+      currentDate: currentDate,
+    });
 
   return (
     <>
@@ -22,7 +23,9 @@ export const CalendarPage = () => {
         <CalenderBody
           currentDate={currentDate}
           dateList={dateList}
+          setDateList={setDateList}
           deleteSchedule={deleteSchedule}
+          changeSchedule={changeSchedule}
         />
       </table>
     </>

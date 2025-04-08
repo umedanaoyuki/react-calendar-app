@@ -8,13 +8,19 @@ import { ScheduleDetailsModal } from "./ScheduleDetailsModal";
 type PropsType = {
   currentDate: Date;
   dateList: DateList;
+  setDateList: (dateList: DateList) => void;
   deleteSchedule: (schedule: Schedule) => void;
+  changeSchedule: (
+    originalSchedule: Schedule | null,
+    selectedSchedule: Schedule
+  ) => void;
 };
 
 export const CalenderBody = ({
   currentDate,
   dateList,
   deleteSchedule,
+  changeSchedule,
 }: PropsType) => {
   const [selectedSchedule, setSelectedSchedule] = useState<Schedule | null>(
     null
@@ -75,6 +81,7 @@ export const CalenderBody = ({
         isEditting={isEditting}
         setSelectedSchedule={setSelectedSchedule}
         handleIsEdittingChange={handleIsEdittingChange}
+        changeSchedule={changeSchedule}
       />
     </>
   );

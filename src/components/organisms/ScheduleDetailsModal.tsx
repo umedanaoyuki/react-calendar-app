@@ -2,7 +2,7 @@ import Modal from "react-modal";
 import { Schedule } from "../../types/calendar";
 import { format, parseISO } from "date-fns";
 import { PrimaryBtn } from "../atoms/PrimaryBtn";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 type PropsType = {
   isEditting: boolean;
@@ -11,6 +11,10 @@ type PropsType = {
   closeModal: () => void;
   deleteSchedule: (schedule: Schedule) => void;
   setSelectedSchedule: (schedule: Schedule | null) => void;
+  changeSchedule: (
+    originalSchedule: Schedule | null,
+    selectedSchedule: Schedule
+  ) => void;
 };
 
 const customStyles = {
@@ -31,7 +35,20 @@ export const ScheduleDetailsModal = ({
   closeModal,
   deleteSchedule,
   setSelectedSchedule,
+  changeSchedule,
 }: PropsType) => {
+  const [originalSchedule, setOriginalSchedule] = useState<Schedule | null>(
+    null
+  );
+
+  useEffect(() => {
+    console.log("useEffect発動");
+    if (selectedSchedule && !originalSchedule) {
+      setOriginalSchedule(selectedSchedule);
+    }
+    console.log({ originalSchedule });
+  }, [selectedSchedule]);
+
   const handleDeleteSchedule = (selectedSchedule: Schedule) => {
     if (selectedSchedule) {
       deleteSchedule(selectedSchedule);
@@ -39,8 +56,15 @@ export const ScheduleDetailsModal = ({
     closeModal();
   };
 
-  const handleEditSchedule = (isEditting: boolean) => {
+  const handleEditSchedule = (
+    isEditting: boolean,
+    originalSchedule: Schedule | null,
+    selectedSchedule: Schedule
+  ) => {
     console.log("通過1");
+    console.log({ originalSchedule });
+    console.log({ selectedSchedule });
+
     // 保存ボタンの表示
     if (!isEditting) {
       console.log("通過2");
@@ -48,6 +72,13 @@ export const ScheduleDetailsModal = ({
     } else {
       console.log("保存");
       handleIsEdittingChange(isEditting);
+      console.log("保存２");
+
+      console.log({ originalSchedule });
+      console.log({ selectedSchedule });
+
+      changeSchedule(originalSchedule, selectedSchedule);
+      setOriginalSchedule(null);
     }
   };
 
@@ -76,7 +107,13 @@ export const ScheduleDetailsModal = ({
           <div className="flex justify-center gap-4">
             <PrimaryBtn
               size="sm"
-              onClick={() => handleEditSchedule(isEditting)}
+              onClick={() =>
+                handleEditSchedule(
+                  isEditting,
+                  originalSchedule,
+                  selectedSchedule
+                )
+              }
             >
               {isEditting ? "保存" : "編集"}
             </PrimaryBtn>
