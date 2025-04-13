@@ -58,15 +58,12 @@ export const useCalendar = ({ currentDate }: PropsType) => {
     const secondIndex = newDateList[firstIndex].findIndex((item) =>
       isSameDay(item.date, schedule.date)
     );
-    newDateList[firstIndex][secondIndex].schedules = [
-      ...newDateList[firstIndex][secondIndex].schedules,
-      {
-        id: schedule.id, // 既存のスケジュールのIDを使用
-        date: schedule.date, // 既存のスケジュールの日付を使用
-        title: schedule.title,
-        description: schedule.description,
-      },
-    ];
+
+    // 既存のスケジュールを更新
+    newDateList[firstIndex][secondIndex].schedules = newDateList[firstIndex][
+      secondIndex
+    ].schedules.map((item) => (item.id === schedule.id ? schedule : item));
+
     setDateList(newDateList);
   };
 
