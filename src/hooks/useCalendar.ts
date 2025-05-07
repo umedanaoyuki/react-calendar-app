@@ -15,21 +15,6 @@ export const useCalendar = ({
   allSchedules,
   setAllSchedules,
 }: PropsType) => {
-  const getDateListIndex = (
-    currentDateList: DateList,
-    schedule: Schedule
-  ): number[] => {
-    const firstIndex = currentDateList.findIndex((oneWeek) =>
-      oneWeek.some((item) => isSameDay(item.date, schedule.date))
-    );
-    if (firstIndex === -1) return [-1, -1];
-    const secondIndex = currentDateList[firstIndex].findIndex((item) =>
-      isSameDay(item.date, schedule.date)
-    );
-
-    return [firstIndex, secondIndex];
-  };
-
   const addSchedule = (schedule: Schedule) => {
     const newDateList = [...dateList];
     const firstIndex = newDateList.findIndex((oneWeek) =>
