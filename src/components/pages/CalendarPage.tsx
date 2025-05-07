@@ -16,7 +16,6 @@ import { DateList, Schedule } from "../../types/calendar";
 import { getScheduleList } from "../../api/calendar";
 
 export const CalendarPage = ({ newDate }: { newDate: Date }) => {
-  console.log("CalendarPage");
   const [currentDate, setCurrentDate] = useState<Date>(newDate);
 
   const [allSchedules, setAllSchedules] = useState<Schedule[]>(() =>
