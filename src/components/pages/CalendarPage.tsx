@@ -33,7 +33,6 @@ export const CalendarPage = ({ newDate }: { newDate: Date }) => {
   });
 
   useEffect(() => {
-    console.log("useEffect2");
     const monthOfSundayList = eachWeekOfInterval({
       start: startOfMonth(currentDate),
       end: endOfMonth(currentDate),
