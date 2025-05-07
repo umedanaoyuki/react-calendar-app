@@ -22,7 +22,6 @@ export const CalendarPage = ({ newDate }: { newDate: Date }) => {
     getScheduleList()
   );
   const [dateList, setDateList] = useState<DateList>([]);
-  console.log({ dateList });
   const { addSchedule, deleteSchedule, changeSchedule } = useCalendar({
     currentDate: currentDate,
     dateList,
