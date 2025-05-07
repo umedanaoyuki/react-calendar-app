@@ -16,8 +16,6 @@ export const router = createBrowserRouter([
   },
   {
     element: <LoginLayout />,
-    children: [
-      { path: "/calendar", element: <CalendarPage newDate={new Date()} /> },
-    ],
+    children: [{ path: "/calendar", element: <CalendarPage /> }],
   },
 ]);

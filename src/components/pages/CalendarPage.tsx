@@ -15,9 +15,8 @@ import { CalendarNav } from "../organisms/CalendarNav";
 import { DateList, Schedule } from "../../types/calendar";
 import { getScheduleList } from "../../api/calendar";
 
-export const CalendarPage = ({ newDate }: { newDate: Date }) => {
-  const [currentDate, setCurrentDate] = useState<Date>(newDate);
-
+export const CalendarPage = () => {
+  const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [allSchedules, setAllSchedules] = useState<Schedule[]>(() =>
     getScheduleList()
   );
