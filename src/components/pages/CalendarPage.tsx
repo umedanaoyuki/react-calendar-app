@@ -1,16 +1,89 @@
-import { getMonth } from "date-fns";
+import {
+  eachDayOfInterval,
+  eachWeekOfInterval,
+  endOfMonth,
+  endOfWeek,
+  getMonth,
+  isSameDay,
+  startOfMonth,
+} from "date-fns";
 import { CalendarHeader } from "../organisms/CalendarHeader";
 import { CalenderBody } from "../organisms/CalenderBody";
 import { useCalendar } from "../../hooks/useCalendar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CalendarNav } from "../organisms/CalendarNav";
+import { DateList, Schedule } from "../../types/calendar";
+import { getScheduleList } from "../../api/calendar";
 
-export const CalendarPage = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const { dateList, setDateList, addSchedule, deleteSchedule, changeSchedule } =
-    useCalendar({
-      currentDate: currentDate,
+export const CalendarPage = ({ newDate }: { newDate: Date }) => {
+  console.log("CalendarPage");
+  const [currentDate, setCurrentDate] = useState<Date>(newDate);
+
+  const [allSchedules, setAllSchedules] = useState<Schedule[]>(() =>
+    getScheduleList()
+  );
+  const [dateList, setDateList] = useState<DateList>([]);
+  console.log({ dateList });
+  const { addSchedule, deleteSchedule, changeSchedule } = useCalendar({
+    currentDate: currentDate,
+    dateList,
+    setDateList,
+    allSchedules,
+    setAllSchedules,
+  });
+
+  console.log({ dateList });
+
+  console.log({ dateList });
+
+  // useEffect(() => {
+  //   console.log("useEffect1");
+  //   const monthOfSundayList = eachWeekOfInterval({
+  //     start: startOfMonth(currentDate),
+  //     end: endOfMonth(currentDate),
+  //   });
+
+  //   const newDateList: DateList = monthOfSundayList.map((date) => {
+  //     return eachDayOfInterval({
+  //       start: date,
+  //       end: endOfWeek(date),
+  //     }).map((date) => ({ date, schedules: [] as Schedule[] }));
+  //   });
+
+  //   const scheduleList = getScheduleList();
+  //   scheduleList.forEach((schedule) => {
+  //     const [firstIndex, secondIndex] = getDateListIndex(newDateList, schedule);
+  //     if (firstIndex === -1) return;
+
+  //     newDateList[firstIndex][secondIndex].schedules = [
+  //       ...newDateList[firstIndex][secondIndex].schedules,
+  //       schedule,
+  //     ];
+  //   });
+
+  //   setDateList(newDateList);
+  //   console.log({ dateList });
+  // }, []);
+
+  useEffect(() => {
+    console.log("useEffect2");
+    const monthOfSundayList = eachWeekOfInterval({
+      start: startOfMonth(currentDate),
+      end: endOfMonth(currentDate),
     });
+
+    const newDateList: DateList = monthOfSundayList.map((date) => {
+      return eachDayOfInterval({
+        start: date,
+        end: endOfWeek(date),
+      }).map((date) => ({
+        date,
+        schedules: allSchedules.filter((sch) => isSameDay(sch.date, date)),
+      }));
+    });
+
+    setDateList(newDateList);
+  }, [currentDate, allSchedules]);
 
   return (
     <>
