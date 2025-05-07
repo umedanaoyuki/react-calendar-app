@@ -32,39 +32,6 @@ export const CalendarPage = ({ newDate }: { newDate: Date }) => {
     setAllSchedules,
   });
 
-  console.log({ dateList });
-
-  console.log({ dateList });
-
-  // useEffect(() => {
-  //   console.log("useEffect1");
-  //   const monthOfSundayList = eachWeekOfInterval({
-  //     start: startOfMonth(currentDate),
-  //     end: endOfMonth(currentDate),
-  //   });
-
-  //   const newDateList: DateList = monthOfSundayList.map((date) => {
-  //     return eachDayOfInterval({
-  //       start: date,
-  //       end: endOfWeek(date),
-  //     }).map((date) => ({ date, schedules: [] as Schedule[] }));
-  //   });
-
-  //   const scheduleList = getScheduleList();
-  //   scheduleList.forEach((schedule) => {
-  //     const [firstIndex, secondIndex] = getDateListIndex(newDateList, schedule);
-  //     if (firstIndex === -1) return;
-
-  //     newDateList[firstIndex][secondIndex].schedules = [
-  //       ...newDateList[firstIndex][secondIndex].schedules,
-  //       schedule,
-  //     ];
-  //   });
-
-  //   setDateList(newDateList);
-  //   console.log({ dateList });
-  // }, []);
-
   useEffect(() => {
     console.log("useEffect2");
     const monthOfSundayList = eachWeekOfInterval({
