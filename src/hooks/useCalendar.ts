@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { DateList, Schedule } from "../types/calendar";
 import { isSameDay } from "date-fns";
 
@@ -5,14 +6,12 @@ type PropsType = {
   currentDate: Date;
   dateList: DateList;
   setDateList: (dateList: DateList) => void;
-  allSchedules: Schedule[];
-  setAllSchedules: (schedules: Schedule[]) => void;
+  setAllSchedules: Dispatch<SetStateAction<Schedule[]>>;
 };
 
 export const useCalendar = ({
   dateList,
   setDateList,
-  allSchedules,
   setAllSchedules,
 }: PropsType) => {
   const addSchedule = (schedule: Schedule) => {
@@ -29,7 +28,7 @@ export const useCalendar = ({
       schedule,
     ];
     setDateList(newDateList);
-    setAllSchedules([...allSchedules, schedule]);
+    setAllSchedules((prevAllSchedules) => [...prevAllSchedules, schedule]);
   };
 
   const editSchedule = (schedule: Schedule) => {
@@ -49,8 +48,10 @@ export const useCalendar = ({
     ].schedules.map((item) => (item.id === schedule.id ? schedule : item));
 
     setDateList(newDateList);
-    setAllSchedules(
-      allSchedules.map((item) => (item.id === schedule.id ? schedule : item))
+    setAllSchedules((prevAllSchedules) =>
+      prevAllSchedules.map((item) =>
+        item.id === schedule.id ? schedule : item
+      )
     );
   };
 
@@ -71,7 +72,9 @@ export const useCalendar = ({
     ].schedules.filter((item) => item.id !== schedule.id);
 
     setDateList(newDateList);
-    setAllSchedules(allSchedules.filter((item) => item.id !== schedule.id));
+    setAllSchedules((prevAllSchedules) =>
+      prevAllSchedules.filter((item) => item.id !== schedule.id)
+    );
   };
 
   // 予定変更
@@ -80,8 +83,8 @@ export const useCalendar = ({
     selectedSchedule: Schedule
   ) => {
     if (originalSchedule) {
-      setAllSchedules(
-        allSchedules
+      setAllSchedules((prevAllSchedules) =>
+        prevAllSchedules
           .filter((item) => item.id !== originalSchedule.id)
           .concat(selectedSchedule)
       );

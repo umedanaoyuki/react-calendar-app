@@ -25,7 +25,6 @@ export const CalendarPage = () => {
     currentDate: currentDate,
     dateList,
     setDateList,
-    allSchedules,
     setAllSchedules,
   });
 
