@@ -1,16 +1,51 @@
-import { getMonth } from "date-fns";
+import {
+  eachDayOfInterval,
+  eachWeekOfInterval,
+  endOfMonth,
+  endOfWeek,
+  getMonth,
+  isSameDay,
+  startOfMonth,
+} from "date-fns";
 import { CalendarHeader } from "../organisms/CalendarHeader";
 import { CalenderBody } from "../organisms/CalenderBody";
 import { useCalendar } from "../../hooks/useCalendar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CalendarNav } from "../organisms/CalendarNav";
+import { DateList, Schedule } from "../../types/calendar";
+import { getScheduleList } from "../../api/calendar";
 
 export const CalendarPage = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const { dateList, setDateList, addSchedule, deleteSchedule, changeSchedule } =
-    useCalendar({
-      currentDate: currentDate,
+  const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const [allSchedules, setAllSchedules] = useState<Schedule[]>(() =>
+    getScheduleList()
+  );
+  const [dateList, setDateList] = useState<DateList>([]);
+  const { addSchedule, deleteSchedule, changeSchedule } = useCalendar({
+    currentDate: currentDate,
+    dateList,
+    setDateList,
+    setAllSchedules,
+  });
+
+  useEffect(() => {
+    const monthOfSundayList = eachWeekOfInterval({
+      start: startOfMonth(currentDate),
+      end: endOfMonth(currentDate),
     });
+
+    const newDateList: DateList = monthOfSundayList.map((date) => {
+      return eachDayOfInterval({
+        start: date,
+        end: endOfWeek(date),
+      }).map((date) => ({
+        date,
+        schedules: allSchedules.filter((sch) => isSameDay(sch.date, date)),
+      }));
+    });
+
+    setDateList(newDateList);
+  }, [currentDate, allSchedules]);
 
   return (
     <>
